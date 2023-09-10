@@ -83,7 +83,7 @@ export default class Server implements PartyServer {
 }
 ```
 
-**Related guide:** [Building a Real-time WebSocket server](/guides/building-a-real-time-websocket-server)
+**Related guide:** [Building a Real-time WebSocket server](/guides/)
 
 ### PartyServer.onMessage
 
@@ -307,7 +307,7 @@ Internal ID assigned by the platform. Use `Party.id` instead.
 
 Environment variables defined for this party.
 
-Related reading: [Managing secrets with PartyKit](/guides/managing-secrets-with-partykit).
+Related reading: [Managing environment variables with PartyKit](/guides/managing-environment-variables).
 
 ### Party.storage
 

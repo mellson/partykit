@@ -1,5 +1,41 @@
 # partykit
 
+## 0.0.10
+
+### Patch Changes
+
+- [#339](https://github.com/partykit/partykit/pull/339) [`0206dd5`](https://github.com/partykit/partykit/commit/0206dd59b56c5f232969ca99e9c9ea5b286ed0d8) Thanks [@threepointone](https://github.com/threepointone)! - partykit: bundle dependencies
+
+  This brings back packaging of dependencies for partykit (and introduces it for create-partykit). We had previously disabled it for deps because of esm/cjs nonsense, but we've now figured out how to make them play decently together.
+
+  I had to fork ink-testing-library because of https://github.com/vadimdemedes/ink-testing-library/pull/23, I'll remove it once that PR is merged.
+
+  This also updates ink to 4.4.1, which fixes our previous issue where it was exiting early.
+
+## 0.0.9
+
+### Patch Changes
+
+- [`c5a8357`](https://github.com/partykit/partykit/commit/c5a835761e4b81a0dbd460ac53aa93193ce4c658) Thanks [@jevakallio](https://github.com/jevakallio)! - Trigger a new release
+
+## 0.0.8
+
+### Patch Changes
+
+- [#329](https://github.com/partykit/partykit/pull/329) [`9a55f69`](https://github.com/partykit/partykit/commit/9a55f69dee39267faf02204821b724c826870d39) Thanks [@threepointone](https://github.com/threepointone)! - change naming of /server exports
+
+  This changes the naming of our exported types from `partykit/server`. The motivation here was aesthetic/simplification. Most of the exports los the `Party` prefix; i.e. `PartyServer` becomes `Server`, `PartyConnection` becomes `Connection`, and so on. If you look at the class example, this doesn't drastically change the code; the import becomes a lot shorter (`import type * as Party from 'partykit/server'` gets all the required types) and required types are taken by `Party.*`.
+
+  I also did a run on all the docs/templates and the blog post, but lemme know if I missed anything!
+
+- [#333](https://github.com/partykit/partykit/pull/333) [`dc324d9`](https://github.com/partykit/partykit/commit/dc324d91d9521682bf8490e1fed51d5371a752df) Thanks [@threepointone](https://github.com/threepointone)! - fix: `init` doesn't install the right versions of packages
+
+  This fix should pick up the latest versions of partykit /partysocket when installing. We were using the previous beta logic when every package was on the same version. This patch picks up the latest versions of both and uses it.
+
+  (also sneaking in a quick types fix for usePartySocket)
+
+- [#334](https://github.com/partykit/partykit/pull/334) [`9e46880`](https://github.com/partykit/partykit/commit/9e468804206d7a3a3d56d3d3c795bd603a131b9d) Thanks [@jevakallio](https://github.com/jevakallio)! - Fix create-partykit crash issue by downgrading "ink" dependency to last known good version
+
 ## 0.0.7
 
 ### Patch Changes

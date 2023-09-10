@@ -8,6 +8,7 @@ When your PartyKit project is deployed, the server accepts HTTP requests and Web
 In order to prevent unauthorized requests being routed to your server, you can implement authentication in your `onBeforeConnect` and `onBeforeRequest` handlers.
 
 <!-- TODO: Better image design -->
+
 ![onBefore handlers](../../../assets/on-before.png)
 
 :::note[About the example code]
@@ -29,21 +30,21 @@ const partySocket = new PartySocket({
   room: "room-id",
   // pass the token to PartyKit in the query string
   query: {
-    token
-  }
+    token,
+  },
 });
 ```
 
 You can then verify your user's identity in a `static onBeforeConnect` method:
 
 ```ts
-import type { PartyRequest, PartyServer } from "partykit/server";
+import * as Party from "partykit/server";
 import { verifyToken } from "@clerk/backend";
 
 const CLERK_ENDPOINT = "https://clerk.yourdomain.com";
 
-export default class Server implements PartyServer {
-  static async onBeforeConnect(request: PartyRequest) {
+export default class Server implements Party.Server {
+  static async onBeforeConnect(request: Party.Request) {
     try {
       // get token from request query string
       const token = new URL(request.url).searchParams.get("token") ?? "";
@@ -58,7 +59,7 @@ export default class Server implements PartyServer {
     }
   }
 
-  onRequest(req: PartyRequest) {
+  onRequest(req: Party.Request) {
     return new Response(`Hello from party!`);
   }
 }
@@ -67,31 +68,32 @@ export default class Server implements PartyServer {
 ### Authenticating HTTP requests
 
 <!-- TODO: Add links to guide/API-->
+
 You can configure your PartyKit server to [respond to HTTP requests](/guides/responding-to-http-requests).
 
 To ensure that only authorized users can make requests to your server, you should send a session token in the request.
 
- The recommended way is to pass it as an `Authorization` header:
+The recommended way is to pass it as an `Authorization` header:
 
 ```ts
 fetch(`${PARTYKIT_HOST}/party/${roomId}`, {
   headers: {
     // get an auth token using your authentication client library
-    Authorization: getToken()
-  }
-})
+    Authorization: getToken(),
+  },
+});
 ```
 
 You can then verify your user's identity in a `static onBeforeRequest` method:
 
 ```ts
-import type { PartyRequest, PartyServer } from "partykit/server";
+import type * as Party from "partykit/server";
 import { verifyToken } from "@clerk/backend";
 
 const CLERK_ENDPOINT = "https://clerk.yourdomain.com";
 
-export default class Server implements PartyServer {
-  static async onBeforeRequest(request: PartyRequest) {
+export default class Server implements Party.Server {
+  static async onBeforeRequest(request: Party.Request) {
     try {
       // get token from request headers
       const token = request.headers.get("Authorization") ?? "";
@@ -106,7 +108,7 @@ export default class Server implements PartyServer {
     }
   }
 
-  onRequest(req: PartyRequest) {
+  onRequest(req: Party.Request) {
     return new Response(`Hello from party!`);
   }
 }
@@ -120,6 +122,6 @@ If you're rolling your own JWT authentication, or your identity provider doesn't
 
 Alternatively, you can consider these authentication methods:
 
-- For server-to-server communication, you can use a shared secret. Read about [managing secrets with PartyKit](./managing-secrets-with-partykit).
+- For server-to-server communication, you can use a shared secret. Read about [managing environment variables with PartyKit](./managing-environment-variables).
 
-- For client-to-server connections, you can pass any type of session token, and verify it against your session service. For an example with [NextAuth.js](https://next-auth.js.org/), see the [PartyKit Next.js example app](../../examples/next-js).
+- For client-to-server connections, you can pass any type of session token, and verify it against your session service. For an example with [NextAuth.js](https://next-auth.js.org/), see the [PartyKit Next.js example app](/examples/next-js).

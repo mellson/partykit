@@ -15,7 +15,7 @@ ogImage: "/content-images/partykit-orchestrates-stately/social.png"
 description: Anders Bech Mellson explains how PartyKit has enabled bringing state machines to the Stately Sky 🌤️
 ---
 
-_[Anders Bech Mellson](https://github.com/mellson), together with the Stately team, is at the forefront of visual app logic construction and collaboration. When they wanted to push it to the Sky they turned to PartyKit._
+_[Anders Bech Mellson](https://github.com/mellson) and the [Stately team](https://stately.ai) are at the forefront of visual app logic construction and collaboration. When they wanted to deploy app logic to the Sky, they turned to PartyKit._
 
 ## Introducing Stately
 
